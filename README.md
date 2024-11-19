@@ -25,15 +25,15 @@ From there, I used the lm function in R to calculate the regression coefficients
 ![](regressao-linear-casos-por-obito.png)
 
 Afterward, I created a function to calculate, for each city, the number of deaths expected for a given number of cases using the linear regression model. The implementation is shown in the code below.
-
-**death\_regression\_function\_city** <- function(city, cases) {
-
-**regression\_df** <- df %>% filter(municipality == city) regression <- lm(formula = deaths ~ cases, data = regression\_df) coefficients <- regression$coefficients
-
-calculation <- coefficients[2] \* cases + coefficients[1]
-
-r\_squared <- summary(regression)$r.squared
-
-return(sprintf(**"%.2f deaths with an accuracy of %.4f%%"**, calculation, (r\_squared \* 100))) }
-
-death\_regression\_function\_city(**"Campinas"**, 60000)
+```r
+death_regression_function_city <- function(city, cases) {
+  regression_df <- df %>% filter(municipality == city)
+  regression <- lm(formula = deaths ~ cases, data = regression_df)
+  coefficients <- regression$coefficients
+  
+  calculation <- coefficients[2] * cases + coefficients[1]
+  r_squared <- summary(regression)$r.squared
+  return(sprintf("%.2f deaths with an accuracy of %.4f%%", calculation, (r_squared * 100)))
+}
+death_regression_function_city("Campinas", 60000)
+```
